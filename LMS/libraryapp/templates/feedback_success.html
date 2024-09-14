@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+    .thank-you-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh; /* Center content vertically */
+        text-align: center;
+        padding: 20px;
+        background-color: #c4fcef; /* Light mint background */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Soft shadow */
+    }
+
+    .thank-you-heading {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #007bff; /* Primary color for the heading */
+    }
+
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 1.2rem;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="thank-you-container">
+        <h2 class="thank-you-heading">Thank you for your feedback!</h2>
+        <a href="{% url 'feedback' %}" class="btn btn-primary">Submit More Feedback</a>
+    </div>
+</div>
+{% endblock %}

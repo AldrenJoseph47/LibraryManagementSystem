@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} List of Books {% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    {% block style %}
+    <style>
+        .book-card {
+            margin-bottom: 20px;
+        }
+        .book-image {
+            height: 180px; /* Adjust the size as needed */
+            object-fit: cover; /* Maintain aspect ratio and cover the card area */
+        }
+        .card-body {
+            text-align: center;
+        }
+        .view-button {
+            margin-top: 10px;
+        }
+        .btn-back {
+            background-color: #003366;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .btn-back:hover {
+            background-color: #002244;
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+{% include 'topbar.html' %}
+    <div class="container mt-4">
+        <!-- Back to Home Button -->
+        <a href="{% url 'user_homepage' %}" class="btn btn-back mb-4">Back to Home</a>
+
+        <h1>Books</h1>
+        <!-- Search Form -->
+        <form method="get" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="title" class="form-control" placeholder="Search by title" value="{{ request.GET.title }}">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+        <div class="row">
+            {% for book in books %}
+            <div class="col-md-4">
+                <div class="card book-card">
+                    <img src="{{ book.image.url }}" class="card-img-top book-image" alt="{{ book.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        <p class="card-text">Cost: ₹{{ book.price }}</p>
+                        <p class="card-text">Ratings: {{ book.ratings }}</p>
+                        <a href="{% url 'book_detail' book.id %}" class="btn btn-primary view-button">View Book</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

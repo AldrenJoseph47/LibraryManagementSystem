@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<style>
+    /* Extend container styles */
+    .feedback-form-container,
+    .feedback-list-container {
+        border: 2px solid #007bff; /* Blue border for extended style */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+        transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    }
+
+    .feedback-form-container:hover,
+    .feedback-list-container:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+        border-color: #0056b3; /* Darker border on hover */
+    }
+
+    .feedback-list-container {
+        max-height: 520px;
+        overflow-y: auto; /* Adds scroll if feedbacks overflow */
+    }
+
+    .form-submit-container {
+        margin-top: 20px;
+    }
+
+    .back-to-home {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .back-to-home a {
+        display: inline-block;
+        background-color: #007bff; /* Blue background */
+        color: #ffffff; /* White text */
+        padding: 10px 20px; /* Padding for button */
+        border-radius: 5px; /* Rounded corners */
+        text-decoration: none; /* Remove underline */
+        font-weight: bold; /* Make text bold */
+        transition: background-color 0.3s; /* Smooth background color transition */
+    }
+
+    .back-to-home a:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Feedback Form Section -->
+        <div class="col-md-6">
+            <div class="feedback-form-container p-4 bg-light rounded">
+                <div class="text-center mb-4">
+                    <h2 class="mb-0">Submit Your Feedback</h2>
+                </div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;{{ form.feedback }}
+                    </div>
+                    <div class="form-submit-container text-center">
+                        <button type="submit" class="btn btn-primary w-100">Submit Feedback</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Previous Feedback Section -->
+        <div class="col-md-6">
+            <div class="feedback-list-container p-4 bg-light rounded">
+                <h2 class="text-center mb-4">Your Previous Feedbacks</h2>
+                <p class="text-center"><strong>Total Feedbacks Submitted: {{ user_feedback|length }}</strong></p>
+                {% if user_feedback %}
+                    <ul class="list-group">
+                        {% for fb in user_feedback %}
+                            <li class="list-group-item mb-3">
+                                <strong>Your Feedback:</strong>
+                                <p>{{ fb.feedback }}</p>
+                                <strong>Admin Response:</strong>
+                                <p>
+                                    {% if fb.response %}
+                                        {{ fb.response }}
+                                    {% else %}
+                                        <span class="text-muted">No response yet</span>
+                                    {% endif %}
+                                </p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-center text-muted">You have not submitted any feedback yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Home Button -->
+    <div class="back-to-home">
+        <a href="{% url 'userhomepage' %}">Back to Home</a>
+    </div>
+</div>
+{% endblock %}

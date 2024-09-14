@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} User Login{% endblock %}
+
+{% block style %}
+
+    {% endblock %}
+{% block body %}
+
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="text-light btn btn-link nav-link">Logout</button>
+</form>
+
+
+{% endblock %}

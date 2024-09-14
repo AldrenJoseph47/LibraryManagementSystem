@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<br><br>
+
+<!-- Centering the heading using a container -->
+<div class="heading-container">
+    <span class="badge text-bg-info">
+        <h1 class="text-center">Subscription Details</h1>
+    </span>
+</div>
+<br>
+
+<style>
+    body {
+        background-color: #f8f9fa; /* Background color for the page */
+    }
+
+    .heading-container {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        margin-bottom: 30px; /* Space below the heading */
+    }
+
+    .text-center {
+        text-align: center; /* Center-align text */
+    }
+
+    .subscription-container {
+        max-width: 1200px; /* Maximum width for the container */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 20px; /* Padding around the container */
+    }
+
+    .d-flex {
+        display: flex;
+        justify-content: center; /* Center the content horizontally */
+        flex-wrap: wrap;
+        gap: 15px; /* Gap between cards */
+    }
+
+    .card {
+        width: 18rem;
+        background-color: #ffffff; /* Card background color */
+        border: 1px solid #ddd; /* Card border color */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for the card */
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Hover effects */
+    }
+
+    .card-body {
+        padding: 1.25rem;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        color: #343a40; /* Dark grey for title */
+        font-weight: bold;
+    }
+
+    .card-text, .card-text1, .card-text2 {
+        font-size: 1rem;
+        color: #6c757d; /* Medium grey for text */
+        margin-bottom: 0.5rem;
+    }
+
+    .card-link {
+        display: inline-block;
+        color: #007bff; /* Bootstrap primary blue */
+        font-weight: bold;
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .card-link:hover {
+        color: #0056b3; /* Darker blue on hover */
+        text-decoration: underline;
+    }
+
+    .card:hover {
+        transform: translateY(-5px); /* Lift the card on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+    }
+
+    @media (max-width: 768px) {
+        .card {
+            width: 100%;
+        }
+    }
+
+    .btn-back {
+        background-color: #003366;
+        color: white;
+        margin-bottom: 20px;
+        display: block;
+        width: 200px;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    .btn-back:hover {
+        background-color: #002244;
+    }
+</style>
+
+<div class="subscription-container">
+    <h3 class="text-center">AVAILABLE PLANS</h3><br><br>
+    <div class="d-flex">
+        {% for plan in subscription_list %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ plan.details }}</h5>
+                    <p class="card-text">{{ plan.plan_name }}</p>
+                    <p class="card-text1">Cost: {{ plan.cost }}</p>
+                    <p class="card-text2">Period: {{ plan.details }}</p>
+                    <a href="{% url 'process_payment' plan.id %}" class="card-link">SELECT</a>
+                </div>
+            </div>
+        {% endfor %}
+        <a href="{% url 'user_homepage' %}" class="btn btn-back">Back to Home</a>
+    </div>
+</div>
+
+{% endblock %}

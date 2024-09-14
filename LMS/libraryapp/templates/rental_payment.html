@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2>Rental Payment for {{ book.title }}</h2>
+    <p><strong>Rental Amount:</strong> ₹{{ rental.rent_amount }}</p>
+    <p><strong>Tax Amount (18%):</strong> ₹{{ tax_amount }}</p>
+    <p><strong>Total Amount:</strong> ₹{{ total_amount }}</p>
+
+    <form method="POST" action="{% url 'rental_payment' rental.book_id %}">
+        {% csrf_token %}
+        <label for="mode_of_payment">Choose payment mode:</label>
+        <select name="mode_of_payment" id="mode_of_payment" class="form-select mb-3">
+            <option value="Credit Card">Credit Card</option>
+            <option value="Debit Card">Debit Card</option>
+            <option value="Paypal">Paypal</option>
+        </select>
+        <button type="Submit" class="btn btn-primary">Submit Payment</button>
+    </form>
+</div>
+{% endblock %}

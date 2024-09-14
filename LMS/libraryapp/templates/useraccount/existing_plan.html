@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<style>
+    .subscription-info {
+        background-color: #f8f9fa; /* Light grey background */
+        border-radius: 8px; /* Rounded corners */
+        padding: 20px; /* Padding around the content */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        max-width: 600px; /* Limit the width of the card */
+        margin: 20px auto; /* Center the card horizontally */
+    }
+    .subscription-info h3 {
+        color: #003366; /* Dark blue for the heading */
+        text-align: center; /* Center the heading */
+    }
+    .subscription-info p {
+        font-size: 1.1rem; /* Slightly larger font size for readability */
+        color: #343a40; /* Dark grey for text */
+        margin-bottom: 1rem; /* Space between paragraphs */
+    }
+    .subscription-info a {
+        display: inline-block;
+        background-color: #007bff; /* Bootstrap primary blue */
+        color: #ffffff; /* White text */
+        padding: 10px 20px; /* Padding for the button */
+        border-radius: 5px; /* Rounded corners for the button */
+        text-decoration: none; /* Remove underline */
+        font-weight: bold; /* Make the text bold */
+        text-align: center; /* Center the text */
+        margin-top: 20px; /* Space above the button */
+        transition: background-color 0.3s; /* Smooth background color transition */
+    }
+    .subscription-info a:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="subscription-info">
+        <h3>Active Plan</h3>
+        <p>You currently have an active plan: <strong>{{ active_subscription.plan.plan_name }}</strong></p>
+        <p>Cost: <strong>₹{{ active_subscription.plan.cost }}</strong></p>
+        <p>Period ends on: <strong>{{ active_subscription.end_date }}</strong></p>
+        <p>{{ message }}</p>
+        <a href="{% url 'plans' %}">Go back to Plans</a>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} User Login {{ account_details.name }} {% endblock %}
+{% block style %}
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        height: 80vh; /* Adjust height to your preference */
+        text-align: center;
+    }
+    .login-form {
+        max-width: 400px; /* Optional: Adjust to fit your design */
+        width: 100%; /* Ensure form uses available width */
+    }
+    .btn-success {
+        margin-top: 15px; /* Add some spacing above the button */
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="login-container">
+    <div class="login-form">
+        <h3>Please Log In</h3>
+        <form action="" method="post" novalidate>
+            {% csrf_token %}
+            {{ login_form.as_p }}
+            <input type="submit" value="Login" class="btn btn-success">
+        </form>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container-shadow {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+        }
+        .btn-back {
+            background-color: #003366; /* Dark blue background */
+            color: #ffffff !important; /* White text */
+        }
+        .btn-back:hover {
+            background-color: #002244; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    {% include 'topbar.html' %} <!-- Ensure this includes navigation for logged-in users -->
+
+    <div class="container mt-4">
+        <h1 class="mb-4">Your Rental List</h1> <!-- Updated heading to reflect logged-in user's rentals -->
+        <div class="container-shadow">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Book Title</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                        <th>Rent Amount</th>
+                        <th>Payment Mode</th>
+                        <th>Payment Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rental in rentals %}
+                    <tr>
+                        <td>{{ rental.book.title }}</td> <!-- Display the book title -->
+                        <td>{{ rental.rental_start_date }}</td> <!-- Display start date -->
+                        <td>{{ rental.rental_end_date }}</td> <!-- Display end date -->
+                        <td>{{ rental.get_rental_status_display }}</td> <!-- Display the status (e.g., Active, Completed) -->
+                        <td>₹{{ rental.rent_amount }}</td> <!-- Display the rent amount -->
+                        <td>{{ rental.payment_mode|default:'debit' }}</td> <!-- Display the payment mode, if available -->
+                        <td>{{ rental.payment_date|date:"d M Y" }}</td> <!-- Display payment date or N/A -->
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center">No rentals found</td> <!-- Message when no rentals exist -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Back button to return to user homepage -->
+            <a href="{% url 'user_homepage' %}" class="btn btn-back mt-3">Back to User Home Page</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

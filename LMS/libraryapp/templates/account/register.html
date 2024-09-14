@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %} Register {% endblock %}
+
+{% block style %}
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    .registration-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+    }
+
+    .registration-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .registration-header h3 {
+        font-size: 24px;
+        color: #003366; /* Dark blue color */
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333333;
+        font-weight: bold;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #dddddd;
+        border-radius: 4px;
+        box-sizing: border-box; /* Ensure padding doesn't affect the width */
+    }
+
+    .form-group input[type="submit"] {
+        background-color: #28a745;
+        color: #ffffff;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    .form-group input[type="submit"]:hover {
+        background-color: #218838;
+    }
+
+    .form-group .form-text {
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="registration-container">
+            <div class="registration-header">
+                <h3>Please Register</h3>
+            </div>
+            <form action="" method="post" novalidate>
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="id_username">Username:</label>
+                    {{ user_reg_form.username }}
+                    <small class="form-text">Required. 150 characters or fewer. Letters, digits, and @/./+/-/_ only.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_first_name">First name:</label>
+                    {{ user_reg_form.first_name }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_last_name">Last name:</label>
+                    {{ user_reg_form.last_name }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_email">Email address:</label>
+                    {{ user_reg_form.email }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_password1">Password:</label>
+                    {{ user_reg_form.password1 }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_password2">Confirm Password:</label>
+                    {{ user_reg_form.password2 }}
+                </div>
+
+                <input type="submit" value="Register" class="btn btn-success">
+            </form>
+        </div>
+    </div>
+{% endblock %}
